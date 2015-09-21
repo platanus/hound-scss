@@ -1,9 +1,8 @@
 require "resque"
 require "scss_lint"
 
-require "ext/scss_lint/config"
 require "jobs/completed_file_review_job"
-require "config_options"
+require "configuration"
 
 class ScssReviewJob
   @queue = :scss_review
@@ -16,27 +15,34 @@ class ScssReviewJob
     # content
     # config
 
-    config_options = ConfigOptions.new(attributes["config"])
-    scss_lint_config = SCSSLint::Config.new(config_options.to_hash)
+    configuration = Configuration.new(attributes["config"])
     filename = attributes.fetch("filename")
-    violations = []
-
-    unless scss_lint_config.excluded_file?(filename)
-      scss_lint_runner = SCSSLint::Runner.new(scss_lint_config)
-      scss_lint_runner.run([attributes["content"]])
-
-      violations = scss_lint_runner.lints.map do |lint|
-        { line: lint.location.line, message: lint.description }
-      end
-    end
+    content = attributes.fetch("content")
+    violations = violations(configuration, filename, content)
 
     Resque.enqueue(
       CompletedFileReviewJob,
-      filename: filename,
-      commit_sha: attributes.fetch("commit_sha"),
-      pull_request_number: attributes.fetch("pull_request_number"),
-      patch: attributes.fetch("patch"),
-      violations: violations
+      "filename" => filename,
+      "commit_sha" => attributes.fetch("commit_sha"),
+      "pull_request_number" => attributes.fetch("pull_request_number"),
+      "patch" => attributes.fetch("patch"),
+      "violations" => violations,
     )
+  end
+
+  private
+
+  def self.violations(configuration, filename, content)
+    unless configuration.excluded_file?(filename)
+      configuration.disable_excluded_linters(filename)
+      scss_lint_runner = SCSSLint::Runner.new(configuration.linter_config)
+      scss_lint_runner.run([content])
+
+      scss_lint_runner.lints.map do |lint|
+        { line: lint.location.line, message: lint.description }
+      end
+    else
+      []
+    end
   end
 end

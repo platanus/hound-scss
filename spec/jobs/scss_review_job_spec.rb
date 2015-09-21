@@ -5,110 +5,82 @@ describe ScssReviewJob do
   describe ".perform" do
     context "when double quotes are preferred by default" do
       it "enqueues review job with violations" do
-        allow(Resque).to receive("enqueue")
+        perform_review
 
-        ScssReviewJob.perform(
-          "filename" => "test.scss",
-          "commit_sha" => "123abc",
-          "pull_request_number" => "123",
-          "patch" => "test",
-          "content" => ".a { display: 'none'; }\n"
-        )
-
-        expect(Resque).to have_received("enqueue").with(
-          CompletedFileReviewJob,
-          filename: "test.scss",
-          commit_sha: "123abc",
-          pull_request_number: "123",
-          patch: "test",
-          violations: [
-            { line: 1, message: "Prefer double-quoted strings" }
-          ]
-        )
+        expect_review_result_with_violations([
+          { line: 1, message: "Prefer double-quoted strings" }
+        ])
       end
     end
 
     context "when string quotes rule is disabled" do
       it "enqueues review job without violations" do
-        allow(Resque).to receive("enqueue")
+        config = <<-YAML
+          linters:
+            StringQuotes:
+              enabled: false
+              style: double_quotes
+        YAML
 
-        ScssReviewJob.perform(
-          "filename" => "test.scss",
-          "commit_sha" => "123abc",
-          "pull_request_number" => "123",
-          "patch" => "test",
-          "content" => ".a { display: 'none'; }\n",
-          "config" => <<-CONFIG
-linters:
-  StringQuotes:
-    enabled: false
-    style: double_quotes
-          CONFIG
-        )
+        perform_review("config" => config)
 
-        expect(Resque).to have_received("enqueue").with(
-          CompletedFileReviewJob,
-          filename: "test.scss",
-          commit_sha: "123abc",
-          pull_request_number: "123",
-          patch: "test",
-          violations: []
-        )
+        expect_review_result_without_violations
       end
     end
 
-    context "when file with violations is excluded as an Array" do
+    context "when file is excluded" do
       it "enqueues review job without violations" do
-        allow(Resque).to receive("enqueue")
+        config = <<-YAML
+          exclude:
+            - "app/assets/test.scss"
+        YAML
 
-        ScssReviewJob.perform(
-          "filename" => "test.scss",
-          "commit_sha" => "123abc",
-          "pull_request_number" => "123",
-          "patch" => "test",
-          "content" => ".a { display: 'none'; }\n",
-          "config" => <<-CONFIG
-exclude:
-  - "test.scss"
-          CONFIG
-        )
+        perform_review("config" => config)
 
-        expect(Resque).to have_received("enqueue").with(
-          CompletedFileReviewJob,
-          filename: "test.scss",
-          commit_sha: "123abc",
-          pull_request_number: "123",
-          patch: "test",
-          violations: []
-        )
+        expect_review_result_without_violations
       end
     end
 
-    context "when file with violations is excluded as a String" do
-      it "enqueues review job without violations" do
-        allow(Resque).to receive("enqueue")
+    context "when file is excluded for particular linter" do
+      it "does not find vioalations" do
+        config = <<-YAML
+          linters:
+            StringQuotes:
+              exclude: "app/assets/test.scss"
+        YAML
 
-        ScssReviewJob.perform(
-          "filename" => "app/assets/test.scss",
-          "commit_sha" => "123abc",
-          "pull_request_number" => "123",
-          "patch" => "test",
-          "content" => ".a { display: 'none'; }\n",
-          "config" => <<-CONFIG
-exclude:
-  "app/assets/*"
-          CONFIG
-        )
+        perform_review("config" => config)
 
-        expect(Resque).to have_received("enqueue").with(
-          CompletedFileReviewJob,
-          filename: "app/assets/test.scss",
-          commit_sha: "123abc",
-          pull_request_number: "123",
-          patch: "test",
-          violations: []
-        )
+        expect_review_result_without_violations
       end
     end
+  end
+
+  def perform_review(options = {})
+    allow(Resque).to receive("enqueue")
+    attributes = job_attributes.merge(options).
+      merge("content" => ".a { display: 'none'; }\n")
+    ScssReviewJob.perform(attributes)
+  end
+
+  def expect_review_result_with_violations(violations)
+    attributes = job_attributes.merge("violations" => violations)
+    expect(Resque).to have_received("enqueue").with(
+      CompletedFileReviewJob,
+      attributes,
+    )
+  end
+
+  def expect_review_result_without_violations
+    expect_review_result_with_violations([])
+  end
+
+  def job_attributes
+    {
+      "filename" => "app/assets/test.scss",
+      "commit_sha" => "123abc",
+      "pull_request_number" => "123",
+      "patch" => "test",
+    }
   end
 end
