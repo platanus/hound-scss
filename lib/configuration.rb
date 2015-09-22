@@ -22,7 +22,7 @@ class Configuration
   end
 
   def disable_excluded_linters(file_path)
-    linter_config.options["linters"].each do |linter_name, options|
+    linter_config.options["linters"].each do |_linter_name, options|
       exluded_paths = Array(options.fetch("exclude", []))
       absolute_path = File.expand_path(file_path, tmpdir)
 

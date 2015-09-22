@@ -18,7 +18,7 @@ class ScssReviewJob
     configuration = Configuration.new(attributes["config"])
     filename = attributes.fetch("filename")
     content = attributes.fetch("content")
-    violations = violations(configuration, filename, content)
+    violations = find_violations(configuration, filename, content)
 
     Resque.enqueue(
       CompletedFileReviewJob,
@@ -30,10 +30,10 @@ class ScssReviewJob
     )
   end
 
-  private
-
-  def self.violations(configuration, filename, content)
-    unless configuration.excluded_file?(filename)
+  def self.find_violations(configuration, filename, content)
+    if configuration.excluded_file?(filename)
+      []
+    else
       configuration.disable_excluded_linters(filename)
       scss_lint_runner = SCSSLint::Runner.new(configuration.linter_config)
       scss_lint_runner.run([content])
@@ -41,8 +41,6 @@ class ScssReviewJob
       scss_lint_runner.lints.map do |lint|
         { line: lint.location.line, message: lint.description }
       end
-    else
-      []
     end
   end
 end

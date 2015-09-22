@@ -8,7 +8,7 @@ describe ScssReviewJob do
         perform_review
 
         expect_review_result_with_violations([
-          { line: 1, message: "Prefer double-quoted strings" }
+          { line: 1, message: "Prefer double-quoted strings" },
         ])
       end
     end
