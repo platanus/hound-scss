@@ -1,4 +1,5 @@
 require "review"
+require "raven"
 
 class ScssReviewJob
   @queue = :scss_review
@@ -12,5 +13,7 @@ class ScssReviewJob
   # - config
   def self.perform(attributes)
     Review.run(attributes)
+  rescue => exception
+    Raven.capture_exception(exception)
   end
 end
