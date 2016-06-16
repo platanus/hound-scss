@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Use Node for JS based linters",
   "engines": {
-    "node": "8.4.0"
+    "node": "^8.4.0"
   },
   "dependencies": {
     "babel-eslint": "^8.0.1",

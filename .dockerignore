@@ -1,0 +1,9 @@
+.git
+.foreman
+.bundle
+db/*.sqlite3
+log/*.log
+tmp
+.env.local
+dump.rdb
+node_modules
