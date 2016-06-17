@@ -7,9 +7,6 @@ plugin_directories: ['.scss-linters']
 # installed)
 plugin_gems: []
 
-# Default severity of all linters.
-severity: warning
-
 linters:
   BangFormat:
     enabled: true
@@ -44,7 +41,7 @@ linters:
     enabled: true
 
   DisableLinterReason:
-    enabled: false
+    enabled: true
 
   DuplicateProperty:
     enabled: true
@@ -72,7 +69,7 @@ linters:
     style: short # or 'long'
 
   HexNotation:
-    enabled: true
+    enabled: false
     style: lowercase # or 'uppercase'
 
   HexValidation:
@@ -115,10 +112,6 @@ linters:
 
   PlaceholderInExtend:
     enabled: false
-
-  PrivateNamingConvention:
-    enabled: false
-    prefix: _
 
   PropertyCount:
     enabled: true
@@ -165,11 +158,11 @@ linters:
 
   SelectorFormat:
     enabled: true
-    convention: hyphenated_lowercase # or 'strict_BEM', or 'hyphenated_BEM', or 'snake_case', or 'camel_case', or a regex pattern
+    convention: hyphenated_BEM # or 'strict_BEM', or 'hyphenated_BEM', or 'snake_case', or 'camel_case', or a regex pattern
 
   Shorthand:
     enabled: true
-    allowed_shorthands: [1, 2, 3]
+    allowed_shorthands: [1, 2]
 
   SingleLinePerProperty:
     enabled: true
@@ -188,10 +181,6 @@ linters:
 
   SpaceAfterPropertyName:
     enabled: true
-
-  SpaceAfterVariableColon:
-    enabled: false
-    style: one_space # or 'no_space', 'at_least_one_space' or 'one_space_or_newline'
 
   SpaceAfterVariableName:
     enabled: true
@@ -220,7 +209,7 @@ linters:
     enabled: true
 
   TrailingZero:
-    enabled: false
+    enabled: true
 
   TransitionAll:
     enabled: false
@@ -238,8 +227,8 @@ linters:
     enabled: true
 
   VariableForProperty:
-    enabled: false
-    properties: []
+    enabled: true
+    properties: [font]
 
   VendorPrefix:
     enabled: true
