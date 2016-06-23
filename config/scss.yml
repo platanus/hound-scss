@@ -228,7 +228,7 @@ linters:
 
   VariableForProperty:
     enabled: true
-    properties: [font]
+    properties: [font-family]
 
   VendorPrefix:
     enabled: true
