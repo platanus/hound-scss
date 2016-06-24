@@ -18,6 +18,10 @@ module Linters
       def tokenizer
         Tokenizer.new
       end
+
+      def serializer
+        "yaml"
+      end
     end
   end
 end

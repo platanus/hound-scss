@@ -1,19 +1,19 @@
-require "linters/eslint/tokenizer"
+require "linters/tslint/tokenizer"
 
 module Linters
-  module Eslint
+  module Tslint
     class Options
       def command
         path = File.join(File.dirname(__FILE__), "../../..")
-        File.join(path, "/node_modules/eslint/bin/eslint.js .")
+        File.join(path, "/node_modules/tslint/bin/tslint **/*.ts")
       end
 
       def config_filename
-        ".eslintrc"
+        "tslint.json"
       end
 
       def default_config_path
-        "config/eslintrc"
+        "config/tslint.json"
       end
 
       def tokenizer
@@ -21,7 +21,7 @@ module Linters
       end
 
       def serializer
-        "yaml"
+        "json"
       end
     end
   end

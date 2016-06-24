@@ -41,13 +41,14 @@ module Linters
     end
 
     def config_file
-      SourceFile.new(linter_options.config_filename, config.to_yaml)
+      SourceFile.new(linter_options.config_filename, config.serialize)
     end
 
     def config
       Config.new(
         content: attributes.fetch("config"),
         default_config_path: linter_options.default_config_path,
+        serialize: linter_options.serializer
       )
     end
 

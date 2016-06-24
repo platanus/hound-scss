@@ -1,14 +1,20 @@
 require "yaml"
+require "json"
 
 module Linters
   class Config
-    def initialize(content:, default_config_path:)
+    def initialize(content:, default_config_path:, serialize:)
       @custom_config = YAML.safe_load(content) || {}
       @default_config_path = default_config_path
+      @serialize = serialize
     end
 
-    def to_yaml
-      to_hash.to_yaml
+    def serialize
+      if @serialize == "yaml"
+        to_hash.to_yaml
+      elsif @serialize == "json"
+        to_hash.to_json
+      end
     end
 
     private
