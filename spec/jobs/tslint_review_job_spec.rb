@@ -30,6 +30,27 @@ RSpec.describe TslintReviewJob do
     end
   end
 
+  context "when custom configuraton is provided" do
+    it "respects the custom configuration" do
+      config = <<~JSON
+        {
+          "rules": {
+            "no-unused-variable": "on",
+            "no-var-keyword": "on",
+            "no-var-requires": ""
+          }
+        }
+      JSON
+
+      expect_violations_in_file(
+        config: config,
+        content: content,
+        filename: "foo/test.ts",
+        violations: [],
+      )
+    end
+  end
+
   def content
     <<~TS
       var _ = require("lodash");
