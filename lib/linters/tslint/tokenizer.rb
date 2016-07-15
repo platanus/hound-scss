@@ -9,20 +9,7 @@ module Linters
       \z/x
 
       def parse(text)
-        text.split("\n").map { |line| tokenize(line) }.compact
-      end
-
-      private
-
-      def tokenize(line)
-        matches = VIOLATION_REGEX.match(line)
-
-        if matches
-          {
-            line: matches[:line_number].to_i,
-            message: matches[:message],
-          }
-        end
+        Linters::Tokenizer.new(text, VIOLATION_REGEX).parse
       end
     end
   end
