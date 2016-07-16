@@ -37,7 +37,7 @@ RSpec.describe TslintReviewJob do
           "rules": {
             "no-unused-variable": "on",
             "no-var-keyword": "on",
-            "no-var-requires": ""
+            "no-var-requires": "on"
           }
         }
       JSON
