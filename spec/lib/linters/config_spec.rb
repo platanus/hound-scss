@@ -22,6 +22,7 @@ describe Linters::Config do
   describe "when no default config" do
     it "returns the config" do
       content = <<~EOL
+      ---
       linters:
         AltText:
           enabled: true
