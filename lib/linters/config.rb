@@ -2,7 +2,7 @@ require "yaml"
 
 module Linters
   class Config
-    def initialize(content:, default_config_path:)
+    def initialize(content:, default_config_path: nil)
       @custom_config = YAML.safe_load(content) || {}
       @default_config_path = default_config_path
     end
@@ -20,7 +20,11 @@ module Linters
     attr_reader :custom_config, :default_config_path
 
     def to_hash
-      default_config.merge(custom_config)
+      if default_config_path.nil?
+        custom_config
+      else
+        default_config.merge(custom_config)
+      end
     end
 
     def default_config

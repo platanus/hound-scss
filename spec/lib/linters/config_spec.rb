@@ -18,4 +18,22 @@ describe Linters::Config do
       expect(result).to include(content)
     end
   end
+
+  describe "when no default config" do
+    it "returns the config" do
+      content = <<~EOL
+      ---
+      linters:
+        AltText:
+          enabled: true
+      EOL
+      config = Linters::Config.new(
+        content: content,
+      )
+
+      result = config.to_yaml
+
+      expect(result).to eq(content)
+    end
+  end
 end
