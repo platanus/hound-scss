@@ -20,10 +20,10 @@ module Linters
     attr_reader :custom_config, :default_config_path
 
     def to_hash
-      if default_config_path.nil?
-        custom_config
-      else
+      if default_config_path
         default_config.merge(custom_config)
+      else
+        custom_config
       end
     end
 
