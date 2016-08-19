@@ -42,10 +42,12 @@ module Linters
     end
 
     def config_file
-      SourceFile.new(
-        linter_options.config_filename,
-        linter_options.config_content(attributes.fetch("config")),
-      )
+      if config_content
+        SourceFile.new(
+          linter_options.config_filename,
+          config_content,
+        )
+      end
     end
 
     def complete_file_review(violations)
@@ -62,6 +64,14 @@ module Linters
 
     def filename
       attributes.fetch("filename")
+    end
+
+    def config
+      attributes.fetch("config")
+    end
+
+    def config_content
+      linter_options.config_content(config)
     end
   end
 end

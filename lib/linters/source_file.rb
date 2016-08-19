@@ -10,13 +10,11 @@ module Linters
     end
 
     def write_to_dir(dir)
-      unless content.nil?
-        file_path = File.join(dir, path)
-        FileUtils.mkdir_p(File.dirname(file_path))
+      file_path = File.join(dir, path)
+      FileUtils.mkdir_p(File.dirname(file_path))
 
-        File.open(file_path, "w") do |file|
-          file.write(content)
-        end
+      File.open(file_path, "w") do |file|
+        file.write(content)
       end
     end
   end

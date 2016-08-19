@@ -15,7 +15,7 @@ module Linters
     def call
       Dir.mktmpdir do |dir|
         source_file.write_to_dir(dir)
-        config_file.write_to_dir(dir)
+        config_file.write_to_dir(dir) if config_file
         run_linter_on_system(dir)
       end
     end
