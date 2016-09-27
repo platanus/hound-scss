@@ -8,7 +8,16 @@ RSpec.describe TslintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.ts",
-        violations: [],
+        violations: [
+          {
+            line: 1,
+            message: "Forbidden 'var' keyword, use 'let' or 'const' instead",
+          },
+          {
+            line: 1,
+            message: "' should be \"",
+          },
+        ],
       )
     end
   end
@@ -17,8 +26,9 @@ RSpec.describe TslintReviewJob do
     it "respects the custom configuration" do
       config = <<~JSON
         {
-          "extends": "tslint:latest",
-          "rules": {}
+          "rules": {
+            "no-unused-variable": true
+          }
         }
       JSON
 
@@ -31,10 +41,6 @@ RSpec.describe TslintReviewJob do
             line: 1,
             message: "Unused variable: '_'",
           },
-          {
-            line: 1,
-            message: "require statement not part of an import statement",
-          },
         ],
       )
     end
@@ -42,7 +48,7 @@ RSpec.describe TslintReviewJob do
 
   def content
     <<~TS
-      let _ = require("lodash");
+      var _ = require('lodash');
     TS
   end
 end
