@@ -27,7 +27,7 @@ RSpec.describe TslintReviewJob do
       config = <<~JSON
         {
           "rules": {
-            "no-unused-variable": true
+            "no-var-requires": true
           }
         }
       JSON
@@ -39,7 +39,7 @@ RSpec.describe TslintReviewJob do
         violations: [
           {
             line: 1,
-            message: "Unused variable: '_'",
+            message: "require statement not part of an import statement",
           },
         ],
       )

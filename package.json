@@ -17,7 +17,7 @@
     "eslint-plugin-react": "^6.2.2",
     "eslint-plugin-standard": "^2.0.0",
     "jshint": "^2.9.2",
-    "tslint": "^3.15.1",
+    "tslint": "^4.4.2",
     "typescript": "^2.0.0"
   }
 }
