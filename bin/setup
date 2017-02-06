@@ -5,7 +5,7 @@ set -e
 gem install bundler --conservative --no-document
 bundle check || bundle install
 
-npm install
+yarn
 
 if ! command -v mix >/dev/null; then
   echo "It looks like you don't have Elixir installed."

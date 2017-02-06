@@ -6,7 +6,7 @@ machine:
 dependencies:
   cache_directories:
     - ~/.asdf
-    - ~/.npm
+    - ~/.cache/yarn
     - deps
     - _build
   pre:
