@@ -7,6 +7,7 @@ bundle check || bundle install
 
 yarn
 
+# Elixir setup
 if ! command -v mix >/dev/null; then
   echo "It looks like you don't have Elixir installed."
   echo "See http://elixir-lang.org/install.html for instructions."
@@ -17,6 +18,9 @@ mix local.hex --force
 mix deps.get
 mix deps.compile
 mix compile
+
+# Python setup
+python -m pip install flake8
 
 # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
 mkdir -p .git/safe

@@ -11,6 +11,7 @@ gem "resque-sentry"
 gem "rubocop"
 gem "scss_lint"
 gem "sentry-raven"
+gem "slim_lint"
 
 group :test, :development do
   gem "awesome_print"

@@ -1,12 +1,18 @@
 module LintersHelper
-  def expect_violations_in_file(content:, filename:, config: "{}", violations:)
+  def expect_violations_in_file(
+    config: "{}",
+    content:,
+    filename:,
+    linter_name: "foo",
+    violations:
+  )
     attributes = {
       "config" => config,
       "content" => content,
       "commit_sha" => "anything",
       "filename" => filename,
       "patch" => "",
-      "linter_name" => "foo",
+      "linter_name" => linter_name,
       "pull_request_number" => "1",
     }
     allow(Resque).to receive(:enqueue)

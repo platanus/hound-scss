@@ -92,7 +92,16 @@ GEM
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    slim (3.0.7)
+      temple (~> 0.7.6)
+      tilt (>= 1.3.3, < 2.1)
+    slim_lint (0.10.0)
+      rake (>= 10, < 13)
+      rubocop (>= 0.36.0)
+      slim (~> 3.0)
+      sysexits (~> 1.1)
     sysexits (1.2.0)
+    temple (0.7.7)
     thread_safe (0.3.5)
     tilt (2.0.5)
     unicode-display_width (1.1.2)
@@ -121,9 +130,10 @@ DEPENDENCIES
   rubocop
   scss_lint
   sentry-raven
+  slim_lint
 
 RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
