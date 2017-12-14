@@ -8,6 +8,7 @@ RSpec.describe HamlReviewJob do
       expect_violations_in_file(
         content: "%div\n  #main",
         filename: "foo/test.haml",
+        linter_name: "haml_lint",
         violations: [
           {
             line: 2,
@@ -24,6 +25,7 @@ RSpec.describe HamlReviewJob do
         config: "exclude: foo/*",
         content: "%div\n  #main",
         filename: "foo/test.haml",
+        linter_name: "haml_lint",
         violations: [],
       )
     end
@@ -40,6 +42,7 @@ RSpec.describe HamlReviewJob do
       expect_violations_in_file(
         content: invalid_content,
         filename: "foo/test.haml",
+        linter_name: "haml_lint",
         violations: [
           {
             line: 3,

@@ -1,14 +1,5 @@
-require "resque"
-require "linters/runner"
-require "linters/rubocop/options"
+require "jobs/linters_job"
 
-class RubocopReviewJob
+class RubocopReviewJob < LintersJob
   @queue = :rubocop_review
-
-  def self.perform(attributes)
-    Linters::Runner.call(
-      linter_options: Linters::Rubocop::Options.new,
-      attributes: attributes,
-    )
-  end
 end

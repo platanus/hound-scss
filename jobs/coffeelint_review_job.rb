@@ -1,14 +1,5 @@
-require "resque"
-require "linters/runner"
-require "linters/coffeelint/options"
+require "jobs/linters_job"
 
-class CoffeelintReviewJob
+class CoffeelintReviewJob < LintersJob
   @queue = :coffeelint_review
-
-  def self.perform(attributes)
-    Linters::Runner.call(
-      linter_options: Linters::Coffeelint::Options.new,
-      attributes: attributes,
-    )
-  end
 end

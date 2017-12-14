@@ -16,6 +16,7 @@ RSpec.describe ReekReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.rb",
+        linter_name: "reek",
         violations: [
           {
             line: 1,

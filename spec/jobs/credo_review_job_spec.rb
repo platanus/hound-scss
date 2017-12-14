@@ -9,6 +9,7 @@ RSpec.describe CredoReviewJob do
         config: "",
         content: content,
         filename: "foo/test.ex",
+        linter_name: "credo",
         violations: [
           {
             line: 4,
@@ -42,6 +43,7 @@ RSpec.describe CredoReviewJob do
         config: config,
         content: content,
         filename: "foo/test.exs",
+        linter_name: "credo",
         violations: [
           {
             line: 4,
@@ -63,6 +65,7 @@ RSpec.describe CredoReviewJob do
         config: "",
         content: content,
         filename: "config/foo.exs",
+        linter_name: "credo",
         violations: [
           {
             line: 1,

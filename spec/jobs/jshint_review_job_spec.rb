@@ -8,6 +8,7 @@ RSpec.describe JshintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.js",
+        linter_name: "jshint",
         violations: [
           {
             line: 2,
@@ -30,6 +31,7 @@ RSpec.describe JshintReviewJob do
         config: config,
         content: content,
         filename: "foo/test.js",
+        linter_name: "jshint",
         violations: [],
       )
     end

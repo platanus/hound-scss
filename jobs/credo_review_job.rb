@@ -1,14 +1,5 @@
-require "resque"
-require "linters/runner"
-require "linters/credo/options"
+require "jobs/linters_job"
 
-class CredoReviewJob
+class CredoReviewJob < LintersJob
   @queue = :credo_review
-
-  def self.perform(attributes)
-    Linters::Runner.call(
-      linter_options: Linters::Credo::Options.new,
-      attributes: attributes,
-    )
-  end
 end

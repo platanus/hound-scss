@@ -16,6 +16,7 @@ RSpec.describe RubocopReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.rb",
+        linter_name: "rubocop",
         violations: [
           {
             line: 3,
@@ -39,6 +40,7 @@ RSpec.describe RubocopReviewJob do
           config: config,
           content: "def yo;   42 end",
           filename: "foo/test.rb",
+          linter_name: "rubocop",
           violations: [],
         )
       end
@@ -63,6 +65,7 @@ RSpec.describe RubocopReviewJob do
           config: config,
           content: content,
           filename: "foo/test.rb",
+          linter_name: "rubocop",
           violations: [
             {
               line: 3,
@@ -91,6 +94,7 @@ RSpec.describe RubocopReviewJob do
           config: config,
           content: content,
           filename: "foo/test.rb",
+          linter_name: "rubocop",
           violations: [
             {
               line: 3,
@@ -107,6 +111,7 @@ RSpec.describe RubocopReviewJob do
       expect_violations_in_file(
         content: "def yo 42 end",
         filename: "foo/test.rb",
+        linter_name: "rubocop",
         violations: [
           {
             line: 1,

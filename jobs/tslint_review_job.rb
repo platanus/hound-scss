@@ -1,14 +1,5 @@
-require "resque"
-require "linters/runner"
-require "linters/tslint/options"
+require "jobs/linters_job"
 
-class TslintReviewJob
+class TslintReviewJob < LintersJob
   @queue = :tslint_review
-
-  def self.perform(attributes)
-    Linters::Runner.call(
-      linter_options: Linters::Tslint::Options.new,
-      attributes: attributes,
-    )
-  end
 end

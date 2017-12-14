@@ -8,6 +8,7 @@ RSpec.describe CoffeelintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.coffee",
+        linter_name: "coffeelint",
         violations: [
           {
             line: 1,
@@ -36,6 +37,7 @@ RSpec.describe CoffeelintReviewJob do
         config: config,
         content: content,
         filename: "foo/test.js",
+        linter_name: "coffeelint",
         violations: [
           {
             line: 3,
@@ -65,6 +67,7 @@ RSpec.describe CoffeelintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.js",
+        linter_name: "coffeelint",
         violations: [
           {
             line: 11,
@@ -86,6 +89,7 @@ RSpec.describe CoffeelintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.coffee",
+        linter_name: "coffeelint",
         violations: [
           {
             line: 3,

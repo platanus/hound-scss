@@ -8,6 +8,7 @@ RSpec.describe TslintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.ts",
+        linter_name: "tslint",
         violations: [
           {
             line: 1,
@@ -40,6 +41,7 @@ RSpec.describe TslintReviewJob do
         config: config,
         content: content,
         filename: "foo/test.ts",
+        linter_name: "tslint",
         violations: [
           {
             line: 1,

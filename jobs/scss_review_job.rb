@@ -1,14 +1,5 @@
-require "resque"
-require "linters/runner"
-require "linters/scss_lint/options"
+require "jobs/linters_job"
 
-class ScssReviewJob
+class ScssReviewJob < LintersJob
   @queue = :scss_review
-
-  def self.perform(attributes)
-    Linters::Runner.call(
-      linter_options: Linters::ScssLint::Options.new,
-      attributes: attributes,
-    )
-  end
 end

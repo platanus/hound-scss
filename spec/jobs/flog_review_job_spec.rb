@@ -20,6 +20,7 @@ RSpec.describe FlogReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.rb",
+        linter_name: "flog",
         violations: [
           {
             line: 2,

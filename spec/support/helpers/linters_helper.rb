@@ -3,7 +3,7 @@ module LintersHelper
     config: "{}",
     content:,
     filename:,
-    linter_name: "foo",
+    linter_name:,
     violations:
   )
     attributes = {

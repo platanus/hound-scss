@@ -1,14 +1,5 @@
-require "resque"
-require "linters/runner"
-require "linters/jshint/options"
+require "jobs/linters_job"
 
-class JshintReviewJob
+class JshintReviewJob < LintersJob
   @queue = :jshint_review
-
-  def self.perform(attributes)
-    Linters::Runner.call(
-      linter_options: Linters::Jshint::Options.new,
-      attributes: attributes,
-    )
-  end
 end

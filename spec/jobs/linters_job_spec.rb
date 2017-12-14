@@ -1,6 +1,6 @@
 require "jobs/linters_job"
 
-RSpec.describe LintersJob do
+RSpec.describe LintersJob, "for scss_lint" do
   include LintersHelper
 
   context "when linter name is a single word" do

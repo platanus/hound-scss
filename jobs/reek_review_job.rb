@@ -1,14 +1,5 @@
-require "resque"
-require "linters/runner"
-require "linters/reek/options"
+require "jobs/linters_job"
 
-class ReekReviewJob
+class ReekReviewJob < LintersJob
   @queue = :reek_review
-
-  def self.perform(attributes)
-    Linters::Runner.call(
-      linter_options: Linters::Reek::Options.new,
-      attributes: attributes,
-    )
-  end
 end

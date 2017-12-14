@@ -17,6 +17,7 @@ RSpec.describe ScssReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.scss",
+        linter_name: "scss_lint",
         violations: [
           {
             line: 1,
@@ -37,6 +38,7 @@ RSpec.describe ScssReviewJob do
         config: "exclude: foo/*",
         content: "$color: #aaa\n",
         filename: "foo/test.scss",
+        linter_name: "scss_lint",
         violations: [],
       )
     end
@@ -52,6 +54,7 @@ RSpec.describe ScssReviewJob do
       expect_violations_in_file(
         content: invalid_content,
         filename: "foo/test.scss",
+        linter_name: "scss_lint",
         violations: [
           {
             line: 2,

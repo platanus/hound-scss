@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 require "jobs/linters_job"
 
-RSpec.describe LintersJob do
+RSpec.describe LintersJob, "for stylelint" do
   include LintersHelper
-
-  let(:linter_name) { "stylelint" }
 
   context "when file contains violations" do
     it "reports violations" do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.scss",
-        linter_name: linter_name,
+        linter_name: "stylelint",
         violations: [
           {
             line: 1,
@@ -41,7 +39,7 @@ RSpec.describe LintersJob do
         config: rules_to_ignore,
         content: "$color: #aaa\n",
         filename: "foo/test.scss",
-        linter_name: linter_name,
+        linter_name: "stylelint",
         violations: [],
       )
     end
@@ -57,7 +55,7 @@ RSpec.describe LintersJob do
       expect_violations_in_file(
         content: invalid_content,
         filename: "foo/test.scss",
-        linter_name: linter_name,
+        linter_name: "stylelint",
         violations: [
           {
             line: 2,

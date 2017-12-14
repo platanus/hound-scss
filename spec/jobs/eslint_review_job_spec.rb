@@ -8,6 +8,7 @@ RSpec.describe EslintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.js",
+        linter_name: "eslint",
         violations: [
           {
             line: 2,
@@ -32,6 +33,7 @@ RSpec.describe EslintReviewJob do
         config: config,
         content: content,
         filename: "foo/test.js",
+        linter_name: "eslint",
         violations: [],
       )
     end
@@ -42,6 +44,7 @@ RSpec.describe EslintReviewJob do
       expect_violations_in_file(
         content: content,
         filename: "foo/test.jsx",
+        linter_name: "eslint",
         violations: [
           {
             line: 2,
