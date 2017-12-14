@@ -4,7 +4,7 @@ require "linters/flake8/tokenizer"
 module Linters
   module Flake8
     class Options < Linters::Base::Options
-      def command(_filename)
+      def command
         "flake8"
       end
 
@@ -16,8 +16,8 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        content
+      def config_content
+        config
       end
     end
   end

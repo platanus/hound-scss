@@ -3,9 +3,9 @@ require "linters/slim_lint/tokenizer"
 
 module Linters
   module SlimLint
-    class Options
-      def command(filename)
-        "slim-lint #{filename}"
+    class Options < Linters::Base::Options
+      def command
+        "slim-lint #{filepath}"
       end
 
       def config_filename
@@ -16,8 +16,8 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        content
+      def config_content
+        config
       end
     end
   end

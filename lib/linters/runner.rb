@@ -26,7 +26,7 @@ module Linters
 
     def call
       result = Lint.call(
-        command: linter_options.command(filename),
+        command: linter_options.command,
         config_file: config_file,
         source_file: source_file,
       )
@@ -78,8 +78,7 @@ module Linters
     end
 
     def config_content
-      @_config_congtent ||= linter_options.
-        config_content(attributes.fetch("config"))
+      @_config_content ||= linter_options.config_content
     end
   end
 end

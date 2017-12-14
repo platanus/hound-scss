@@ -4,9 +4,9 @@ require "linters/jshint/tokenizer"
 module Linters
   module Jshint
     class Options < Linters::Base::Options
-      def command(filename)
+      def command
         path = File.join(File.dirname(__FILE__), "../../..")
-        cmd = "/node_modules/jshint/bin/jshint #{filename}"
+        cmd = "/node_modules/jshint/bin/jshint #{filepath}"
         File.join(path, cmd)
       end
 
@@ -18,9 +18,9 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        if JSON.parse(content).any?
-          content
+      def config_content
+        if JSON.parse(config).any?
+          config
         end
       end
     end

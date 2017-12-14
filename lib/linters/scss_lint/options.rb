@@ -4,8 +4,8 @@ require "linters/scss_lint/tokenizer"
 module Linters
   module ScssLint
     class Options < Linters::Base::Options
-      def command(filename)
-        "scss-lint #{filename}"
+      def command
+        "scss-lint #{filepath}"
       end
 
       def config_filename
@@ -16,14 +16,14 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        config(content).to_yaml
+      def config_content
+        combined_config.to_yaml
       end
 
       private
 
-      def config(content)
-        Config.new(content: content, default_config_path: "config/scss.yml")
+      def combined_config
+        Config.new(content: config, default_config_path: "config/scss.yml")
       end
     end
   end

@@ -33,10 +33,14 @@ describe Linters::Runner do
           "patch" => "",
           "pull_request_number" => "123",
         }
+        options = Linters::Rubocop::Options.new(
+          config: config,
+          filepath: "foo.rb",
+        )
         allow(Resque).to receive(:enqueue)
 
         described_class.call(
-          linter_options: Linters::Rubocop::Options.new,
+          linter_options: options,
           attributes: attributes,
         )
 
@@ -75,12 +79,16 @@ describe Linters::Runner do
             output: output,
             error?: true,
           )
+          options = Linters::Rubocop::Options.new(
+            config: "",
+            filepath: "foo.rb",
+          )
           allow(Resque).to receive(:enqueue)
           allow(Linters::CommandResult).to receive(:new).
             and_return(command_result)
 
           described_class.call(
-            linter_options: Linters::Rubocop::Options.new,
+            linter_options: options,
             attributes: attributes,
           )
 

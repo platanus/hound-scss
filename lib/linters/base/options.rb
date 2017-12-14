@@ -1,12 +1,17 @@
 module Linters
   module Base
     # Base Options class for all linters
-    # @abstract
     class Options
+      # @param config [String] contents of a config file
+      # @param filepath [String] relative path to the file being checked
+      def initialize(config:, filepath:)
+        @config = config
+        @filepath = filepath
+      end
+
       # Linter command that will run against a file
-      # @param _filename [String] relative path to the file being checked
       # @return [String] cli command to run
-      def command(_filename)
+      def command
         not_implemented!(__method__)
       end
 
@@ -26,13 +31,14 @@ module Linters
       # Returns content of linter's configuration file.  If the configuration
       # needs merging -- the default config needs to be combined with repo's
       # config -- then that work should happen here.
-      # @param _content [String] contents of a config file
       # @return [Sring, nil] the contents of the config file or nil
-      def config_content(_content)
+      def config_content
         not_implemented!(__method__)
       end
 
       private
+
+      attr_reader :config, :filepath
 
       def not_implemented!(method)
         raise NotImplementedError, "implement ##{method} in your Options class"

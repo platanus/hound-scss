@@ -4,9 +4,9 @@ require "linters/eslint/tokenizer"
 module Linters
   module Eslint
     class Options < Linters::Base::Options
-      def command(filename)
+      def command
         path = File.join(File.dirname(__FILE__), "../../..")
-        cmd = "/node_modules/eslint/bin/eslint.js #{filename}"
+        cmd = "/node_modules/eslint/bin/eslint.js #{filepath}"
         File.join(path, cmd)
       end
 
@@ -18,14 +18,14 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        config(content).to_yaml
+      def config_content
+        combined_config.to_yaml
       end
 
       private
 
-      def config(content)
-        Config.new(content: content, default_config_path: "config/eslintrc")
+      def combined_config
+        Config.new(content: config, default_config_path: "config/eslintrc")
       end
     end
   end

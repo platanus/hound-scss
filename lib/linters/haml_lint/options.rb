@@ -4,8 +4,8 @@ require "linters/haml_lint/tokenizer"
 module Linters
   module HamlLint
     class Options < Linters::Base::Options
-      def command(filename)
-        "haml-lint #{filename}"
+      def command
+        "haml-lint #{filepath}"
       end
 
       def config_filename
@@ -16,14 +16,14 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        config(content).to_yaml
+      def config_content
+        combined_config.to_yaml
       end
 
       private
 
-      def config(content)
-        Config.new(content: content, default_config_path: "config/haml.yml")
+      def combined_config
+        Config.new(content: config, default_config_path: "config/haml.yml")
       end
     end
   end

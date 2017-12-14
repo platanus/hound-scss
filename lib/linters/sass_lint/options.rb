@@ -5,9 +5,9 @@ require "linters/sass_lint/tokenizer"
 module Linters
   module SassLint
     class Options < Linters::Base::Options
-      def command(filename)
+      def command
         path = File.join(File.dirname(__FILE__), "../../..")
-        cmd = "/node_modules/sass-lint/bin/sass-lint.js -v -q #{filename}"
+        cmd = "/node_modules/sass-lint/bin/sass-lint.js -v -q #{filepath}"
         File.join(path, cmd)
       end
 
@@ -19,8 +19,8 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        content
+      def config_content
+        config
       end
     end
   end

@@ -4,8 +4,8 @@ require "linters/reek/tokenizer"
 module Linters
   module Reek
     class Options < Linters::Base::Options
-      def command(filename)
-        "reek --single-line --no-progress #{filename}"
+      def command
+        "reek --single-line --no-progress #{filepath}"
       end
 
       def config_filename
@@ -16,8 +16,8 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        content
+      def config_content
+        config
       end
     end
   end

@@ -3,9 +3,9 @@ require "linters/remark/tokenizer"
 
 module Linters
   module Remark
-    class Options
-      def command(filename)
-        cmd = "remark-cli/cli.js #{filename}"
+    class Options < Linters::Base::Options
+      def command
+        cmd = "remark-cli/cli.js #{filepath}"
         "NODE_PATH=#{node_modules_path} #{File.join(node_modules_path, cmd)}"
       end
 
@@ -17,11 +17,11 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        if JSON.parse(content).any?
-          content
+      def config_content
+        if JSON.parse(config).any?
+          config
         else
-          config(content).to_json
+          combined_config.to_json
         end
       end
 
@@ -35,8 +35,8 @@ module Linters
         File.expand_path("../../..", __dir__)
       end
 
-      def config(content)
-        Config.new(content: content, default_config_path: "config/remarkrc")
+      def combined_config
+        Config.new(content: config, default_config_path: "config/remarkrc")
       end
     end
   end

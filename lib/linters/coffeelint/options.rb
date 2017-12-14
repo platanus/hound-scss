@@ -4,8 +4,8 @@ require "linters/coffeelint/tokenizer"
 module Linters
   module Coffeelint
     class Options < Linters::Base::Options
-      def command(filename)
-        "#{replace_erb_tags(filename)} && #{coffeelint(filename)}"
+      def command
+        "#{replace_erb_tags_command} && #{coffeelint_command}"
       end
 
       def config_filename
@@ -16,21 +16,21 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        if JSON.parse(content).any?
-          content
+      def config_content
+        if JSON.parse(config).any?
+          config
         end
       end
 
       private
 
-      def replace_erb_tags(filename)
-        "sed -i.bak 's/<%.*%>/123/g' #{filename}"
+      def replace_erb_tags_command
+        "sed -i.bak 's/<%.*%>/123/g' #{filepath}"
       end
 
-      def coffeelint(filename)
+      def coffeelint_command
         path = File.join(File.dirname(__FILE__), "../../..")
-        cmd = "/node_modules/coffeelint/bin/coffeelint #{filename}"
+        cmd = "/node_modules/coffeelint/bin/coffeelint #{filepath}"
         File.join(path, cmd)
       end
     end

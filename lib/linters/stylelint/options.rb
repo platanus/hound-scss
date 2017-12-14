@@ -5,9 +5,9 @@ require "linters/stylelint/tokenizer"
 module Linters
   module Stylelint
     class Options < Linters::Base::Options
-      def command(filename)
+      def command
         path = File.join(File.dirname(__FILE__), "../../..")
-        cmd = "/node_modules/stylelint/bin/stylelint.js #{filename}"
+        cmd = "/node_modules/stylelint/bin/stylelint.js #{filepath}"
         "NODE_PATH=#{path}/node_modules #{File.join(path, cmd)}"
       end
 
@@ -19,19 +19,19 @@ module Linters
         Tokenizer.new
       end
 
-      def config_content(content)
-        if JSON.parse(content).any?
-          content
+      def config_content
+        if JSON.parse(config).any?
+          config
         else
-          config(content).to_json
+          combined_config.to_json
         end
       end
 
       private
 
-      def config(content)
+      def combined_config
         Config.new(
-          content: content,
+          content: config,
           default_config_path: "config/.stylelintrc.json",
         )
       end
