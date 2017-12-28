@@ -22,6 +22,7 @@ This service uses the following linters:
   * [rubocop](https://github.com/bbatsov/rubocop) for Ruby
   * [sass-lint](https://github.com/sasstools/sass-lint) for SASS
   * [scss-lint](https://github.com/brigade/scss-lint) for SCSS
+  * [shellcheck](https://github.com/koalaman/shellcheck) for shell scripts
   * [slim-lint](https://github.com/sds/slim-lint) for Slim
   * [stylelint](https://github.com/stylelint/stylelint) for SCSS/CSS
   * [tslint](https://github.com/palantir/tslint) for TypeScript

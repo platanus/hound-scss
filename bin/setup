@@ -22,6 +22,15 @@ mix compile
 # Python setup
 python -m pip install flake8
 
+# ShellCheck setup
+if [ "$(uname)" = "Darwin" ]; then
+  brew install shellcheck
+else
+  sudo apt-add-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe"
+  sudo apt-get update
+  sudo apt-get install shellcheck
+fi
+
 # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
 mkdir -p .git/safe
 
