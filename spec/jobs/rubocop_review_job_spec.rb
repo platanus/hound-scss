@@ -20,7 +20,7 @@ RSpec.describe RubocopReviewJob do
         violations: [
           {
             line: 3,
-            message: "Unused method argument - baz.",
+            message: "Lint/UnusedMethodArgument: Unused method argument - baz.",
           },
         ],
       )
@@ -69,7 +69,7 @@ RSpec.describe RubocopReviewJob do
           violations: [
             {
               line: 3,
-              message: "Unused method argument - baz.",
+              message: "Lint/UnusedMethodArgument: Unused method argument - baz.",
             },
           ],
         )
@@ -98,7 +98,7 @@ RSpec.describe RubocopReviewJob do
           violations: [
             {
               line: 3,
-              message: "Unused method argument - baz.",
+              message: "Lint/UnusedMethodArgument: Unused method argument - baz.",
             },
           ],
         )
@@ -115,7 +115,7 @@ RSpec.describe RubocopReviewJob do
         violations: [
           {
             line: 1,
-            message: "unexpected token tINTEGER",
+            message: "Lint/Syntax: unexpected token tINTEGER",
           },
         ],
       )
