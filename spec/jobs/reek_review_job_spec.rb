@@ -20,11 +20,11 @@ RSpec.describe ReekReviewJob do
         violations: [
           {
             line: 1,
-            message: "IrresponsibleModule: Smelly has no descriptive comment. [More info](https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md).",
+            message: "IrresponsibleModule: Smelly has no descriptive comment. [More info](https://github.com/troessner/reek/blob/v5.2.0/docs/Irresponsible-Module.md).",
           },
           {
             line: 2,
-            message: "UncommunicativeMethodName: Smelly#x has the name 'x'. [More info](https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Method-Name.md).",
+            message: "UncommunicativeMethodName: Smelly#x has the name 'x'. [More info](https://github.com/troessner/reek/blob/v5.2.0/docs/Uncommunicative-Method-Name.md).",
           },
         ]
       )
