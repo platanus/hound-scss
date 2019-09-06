@@ -2,6 +2,7 @@ FROM ruby:2.4.7-alpine3.10
 
 RUN apk add \
   python3 \
+  python3-dev \
   nodejs \
   yarn \
   alpine-sdk
